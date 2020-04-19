@@ -1,9 +1,10 @@
 package demo.spring.boot.service;
 
 import java.math.BigInteger;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,6 +13,7 @@ import demo.spring.boot.dao.jpa.repository.EmployeeRepository;
 import demo.spring.boot.dao.mongo.entity.EmployeeDraft;
 import demo.spring.boot.dao.mongo.repository.EmployeeDraftRepository;
 import demo.spring.boot.service.model.EmployeeContext;
+import demo.spring.boot.service.model.EmployeeProfile;
 
 @Service
 public class EmployeeService {
@@ -28,6 +30,16 @@ public class EmployeeService {
 		return employeeRepository.findWithEmpNo(empNo);
 	}
 	
+	public List<Employee> getAllEmployeeList() {
+		
+		return employeeRepository.getAllEmployeeList();
+	}
+	
+	public List<EmployeeProfile> getAllEmployeeProfileList(int upperLimit) {
+		
+		return employeeRepository.getAllEmployeeProfileList(PageRequest.of(0, upperLimit));
+	}
+	
 	@Transactional
 	public Long save(EmployeeContext employeeContext) {
 		
@@ -42,6 +54,13 @@ public class EmployeeService {
 		employee.setHireDate(employeeContext.getHireDate());
 		
 		employee = employeeRepository.save(employee);
+		
+		/*
+		if(employee.getEmpNo() > 0) {
+			throw new RuntimeException("CUSTOM ERROR FOR ROLLBACK!");
+		}
+		*/
+		
 		return employee.getEmpNo();
 	}
 	
