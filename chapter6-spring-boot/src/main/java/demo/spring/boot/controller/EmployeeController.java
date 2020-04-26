@@ -49,7 +49,7 @@ public class EmployeeController {
 			throw new RuntimeException("Set x-api-key error!!!");
 		}
 		else if(!apikey.equals("BATUHAN")) {
-			throw new RuntimeException("Set x-api-key error!!!");
+			throw new RuntimeException("Invalid x-api-key error!!!");
 		}
 		
 		List<EmployeeProfile> profiles = employeeService.getAllEmployeeProfileList(upperLimit);

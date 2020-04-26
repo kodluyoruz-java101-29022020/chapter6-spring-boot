@@ -98,8 +98,7 @@ public class EmployeeControllerIT {
 				url, 
 				HttpMethod.GET, 
 				httpEntity, 
-				new ParameterizedTypeReference<List<EmployeeProfile>>() {
-		});
+				new ParameterizedTypeReference<List<EmployeeProfile>>() {} );
 		
 		List<EmployeeProfile> profiles = response.getBody();
 		

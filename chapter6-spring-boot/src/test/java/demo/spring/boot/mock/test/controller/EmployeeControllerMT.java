@@ -41,9 +41,15 @@ public class EmployeeControllerMT {
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		request.addHeader("x-api-key", "BATUHAN");
         
-        prepareMockTestRuleEmployeeProfileList();
+		
+		List<EmployeeProfile> profiles = Arrays.asList(new EmployeeProfile());
+		
+		Mockito
+			.when(employeeService.getAllEmployeeProfileList(1))
+			.thenReturn(profiles);
         
-        ResponseEntity<List<EmployeeProfile>> employeeList = employeeController.getAllEmployeeProfileList(1, request);
+        
+		ResponseEntity<List<EmployeeProfile>> employeeList = employeeController.getAllEmployeeProfileList(1, request);
 	
         Assert.assertTrue(HttpStatus.UNAUTHORIZED.equals(employeeList.getStatusCode()));
         Assert.assertEquals(1, employeeList.getBody().size());

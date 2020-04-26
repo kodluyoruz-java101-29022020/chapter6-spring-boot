@@ -50,7 +50,7 @@ public class EmployeeRepositoryIT {
 	
 	@Test
 	@Transactional
-	@Rollback(false)
+	@Rollback(true)
 	@Order(3)
 	public void saveEmployee() {
 		
